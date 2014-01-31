@@ -14,12 +14,7 @@ set ((GPIO_InitTypeDef*)$osp)->GPIO_Speed = GPIO_Speed_50MHz
 set ((GPIO_InitTypeDef*)$osp)->GPIO_Mode = GPIO_Mode_AF_PP
 call GPIO_Init(GPIOA, $osp)
 c
-set ((USART_InitTypeDef*)$osp)->USART_BaudRate = 9600
-set ((USART_InitTypeDef*)$osp)->USART_WordLength = USART_WordLength_8b
-set ((USART_InitTypeDef*)$osp)->USART_StopBits = USART_StopBits_1
-set ((USART_InitTypeDef*)$osp)->USART_Parity = USART_Parity_No
-set ((USART_InitTypeDef*)$osp)->USART_HardwareFlowControl = USART_HardwareFlowControl_None
-set ((USART_InitTypeDef*)$osp)->USART_Mode = USART_Mode_Rx | USART_Mode_Tx
+call USART_StructInit((USART_InitTypeDef*)$osp)
 call USART_Init(USART2, $osp)
 call USART_Cmd(USART2, ENABLE)
 c

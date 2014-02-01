@@ -1,6 +1,7 @@
 CROSS_COMPILE=arm-none-eabi-
 QEMU_STM32 ?= ../qemu_stm32/arm-softmmu/qemu-system-arm
 QEMU_SERIAL_OUTPUT = qemu.log
+GDB_DATA_SENT = gdb.log
 
 ARCH=CM3
 VENDOR=ST
@@ -45,7 +46,10 @@ gdbauto: main.bin
 		-gdb tcp::3333 -S \
 		-kernel main.bin -monitor null \
 		-serial file:$(QEMU_SERIAL_OUTPUT) &
-	$(CROSS_COMPILE)gdb -x gdb.in
+	$(CROSS_COMPILE)gdb -x gdb.in 
+
+check_result:
+	sh check_result.sh $(QEMU_SERIAL_OUTPUT) $(GDB_DATA_SENT)
 
 emu: main.bin
 	bash emulate.sh main.bin

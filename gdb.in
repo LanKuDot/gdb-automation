@@ -19,19 +19,15 @@ call USART_StructInit((USART_InitTypeDef*)$osp)
 call USART_Init(USART2, $osp)
 call USART_Cmd(USART2, ENABLE)
 c
-# Dump the string to binary file
+
 set variable $string_mem=test_string
-dump binary memory gdb.log $string_mem $string_mem+7
 
 # Read from testing string and output to USART
 while ( *(char *) $string_mem != '\0' )
 	call USART_SendData( USART2, *( char * )$string_mem )
+	append value gdb.log *( char * )$string_mem
 	set $string_mem = $string_mem + 1
 end
-
-# restore the binary file and than output to the GDB session
-restore gdb.log binary $string_mem
-printf "%s", $string_mem
 
 # Terminate and Quit gdb
 quit

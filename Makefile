@@ -51,4 +51,4 @@ emu: main.bin
 	bash emulate.sh main.bin
 
 clean:
-	rm -f *.elf *.bin *.list
+	rm -f *.elf *.bin *.list *.log
